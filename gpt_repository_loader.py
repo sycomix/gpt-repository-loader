@@ -14,10 +14,7 @@ def get_ignore_list(ignore_file_path):
     return ignore_list
 
 def should_ignore(file_path, ignore_list):
-    for pattern in ignore_list:
-        if fnmatch.fnmatch(file_path, pattern):
-            return True
-    return False
+    return any(fnmatch.fnmatch(file_path, pattern) for pattern in ignore_list)
 
 def process_repository(repo_path, ignore_list, output_file):
     for root, _, files in os.walk(repo_path):
